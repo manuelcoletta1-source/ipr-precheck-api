@@ -1,0 +1,16 @@
+{
+  "name": "ipr-precheck-api",
+  "version": "0.1.0",
+  "description": "Ex-ante verification API for digital actions via Identity Primary Record (IPR), operating in fail-closed mode.",
+  "license": "Apache-2.0",
+  "private": false,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "lint": "echo \"lint not configured\"",
+    "test": "echo \"no tests defined\""
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
