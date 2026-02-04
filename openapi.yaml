@@ -1,0 +1,67 @@
+openapi: 3.0.3
+info:
+  title: IPR Precheck API
+  description: >
+    API tecnica per la verifica ex-ante di azioni digitali tramite Identity Primary Record (IPR).
+    Nessuna azione è eseguibile senza una prova verificabile ex-ante.
+    In assenza di prova → blocco (fail-closed).
+  version: 0.1.0
+
+servers:
+  - url: https://example.eu/ipr-precheck
+    description: Placeholder server (UE-style)
+
+paths:
+  /precheck:
+    post:
+      summary: Verifica ex-ante di un'azione digitale tramite IPR
+      operationId: precheckAction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - action_hash
+                - ipr_ref
+                - timestamp
+              properties:
+                action_hash:
+                  type: string
+                  description: Hash deterministico dell’azione proposta
+                  example: "sha256:abcdef123456"
+                ipr_ref:
+                  type: string
+                  description: Riferimento all’Identity Primary Record
+                  example: "IPR-HBCE-000"
+                timestamp:
+                  type: string
+                  format: date-time
+                  description: Timestamp ISO-8601 della richiesta
+      responses:
+        "200":
+          description: Azione verificata ex-ante
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - mode
+                properties:
+                  status:
+                    type: string
+                    enum: [PASS, FAIL]
+                  evidence_hash:
+                    type: string
+                    description: Hash dell’evidenza (presente solo se PASS)
+                  reason_code:
+                    type: string
+                    description: Codice di fallimento (presente solo se FAIL)
+                  mode:
+                    type: string
+                    example: fail-closed
+
+components:
+  schemas: {}
